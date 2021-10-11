@@ -17,11 +17,27 @@ const inputElevation = document.querySelector('.form__input--elevation');
 navigator.geolocation.getCurrentPosition(
     //success callback
     function(position){
-//use destructuring ot get latitude&longitude from coords object
+//use destructuring to get latitude&longitude from coords object
 const {latitude}=position.coords;
 const {longitude}=position.coords;
+
+//create a map in the 'map' div, add tiles of our choice, and then add a marker with some text in a popup
+const coords=[latitude,longitude]
+//first argument of setview is our current coordination and the second is zoom number
+//'map' is html element id
+const map = L.map('map').setView(coords, 13);
+//open street map is an open source map for free. you can change its style
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+L.marker(coords).addTo(map)
+    .bindPopup('You are here')
+    .openPopup();
     },
     
+
+
     //error callback
     function(){
     alert('Could not find your position')
