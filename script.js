@@ -21,8 +21,9 @@ navigator.geolocation.getCurrentPosition(
 const {latitude}=position.coords;
 const {longitude}=position.coords;
 
-//create a map in the 'map' div, add tiles of our choice, and then add a marker with some text in a popup
+/////////create a map in the 'map' div, add tiles of our choice, and then add a marker with some text in a popup////////////
 const coords=[latitude,longitude]
+
 //first argument of setview is our current coordination and the second is zoom number
 //'map' is html element id
 const map = L.map('map').setView(coords, 13);
@@ -31,9 +32,26 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-L.marker(coords).addTo(map)
-    .bindPopup('You are here')
+
+//Adding event to the map object
+map.on('click',function(mapEvent){
+    const {lat , lng}=mapEvent.latlng
+    L.marker([lat,lng]).addTo(map)
+    //get popup options from leaflet documentation :https://leafletjs.com/reference-0.7.7.html#popup 
+
+    .bindPopup(L.popup({
+        maxWidth:250,
+        minWidth:100,
+        autoClose:false,
+        closeOnClick:false,
+        className:'running-popup',
+       
+    }))
+    .setPopupContent('Workout')
     .openPopup();
+})
+
+
     },
     
 
