@@ -16,7 +16,7 @@ class App{
     #mapEvent;
 constructor(){
     this._getPosition();
-    form.addEventListener('submit',this._newWorkou.bind(this))
+    form.addEventListener('submit',this._newWorkout.bind(this))
     //once we submit a form a location tag appears on the map
     //toggling between cadence and elevation field in the form  
     inputType.addEventListener('change',this._toggleElevationField)
@@ -49,7 +49,7 @@ alert('Could not find your position')
         //open street map is an open source map for free. you can change its style
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
+        }).addTo(this.#map);
         
         
         //Adding event to the map object
@@ -104,7 +104,7 @@ _toggleElevationField(){
 }
 
 const app=new App();
-// adding submit eventListener
+
 
 
 
